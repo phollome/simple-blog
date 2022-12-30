@@ -1,7 +1,11 @@
-import { expect, test } from "vitest";
-import { hello } from "./utils";
+import { test, expect } from "vitest";
+import { getFiles } from "./utils";
 
-test("hello world", () => {
-  const message = hello("world");
-  expect(message).toBe("Hello world!");
+test("getFiles", async () => {
+  const files = await getFiles("./tmp");
+
+  expect(files).toEqual([
+    "./tmp/files/more-files/another-markdown-file.md",
+    "./tmp/files/some-markdown-file.md",
+  ]);
 });

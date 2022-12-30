@@ -4,5 +4,6 @@ export default defineConfig({
   test: {
     exclude: [...configDefaults.exclude, "**/build/**"],
     watchExclude: [...configDefaults.watchExclude, "**/build/**"],
+    setupFiles: ["./vitest.setup.ts"],
   },
 });

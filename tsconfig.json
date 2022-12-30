@@ -1,5 +1,5 @@
 {
-  "exclude": ["**/*.config.ts", "**/*.spec.ts"],
+  "exclude": ["**/vitest.*.ts", "**/*.spec.ts"],
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",

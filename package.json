@@ -1,8 +1,14 @@
 {
+  "author": {
+    "name": "Peter Holló",
+    "email": "hello@songsforthe.dev"
+  },
+  "main": "index.ts",
   "scripts": {
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "build": "npx tsc",
+    "build:watch": "npx tsc --watch",
     "start": "node build/index.js"
   },
   "devDependencies": {
@@ -11,7 +17,7 @@
     "vitest": "^0.26.2"
   },
   "dependencies": {
-    "del": "^7.0.0",
-    "fs-extra": "^11.1.0"
+    "fs-extra": "^11.1.0",
+    "gray-matter": "^4.0.3"
   }
 }

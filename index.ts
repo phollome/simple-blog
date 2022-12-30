@@ -1,5 +1,10 @@
-import { hello } from "./src/utils";
+import { getFiles } from "./src/utils";
 
-const world = "world";
+async function main() {
+  const files = await getFiles("./data");
+  console.log(files);
+}
 
-console.log(hello(world));
+main().finally(() => {
+  console.log("done.");
+});
