@@ -1,8 +1,8 @@
 import { test, expect } from "vitest";
-import { getFiles } from "./utils";
+import { getListOfFilePaths } from "./utils";
 
-test("getFiles", async () => {
-  const files = await getFiles("./tmp");
+test("getListOfFilePaths()", async () => {
+  const files = await getListOfFilePaths("./tmp");
 
   expect(files).toEqual([
     "./tmp/files/more-files/another-markdown-file.md",
