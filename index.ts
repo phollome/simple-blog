@@ -1,4 +1,5 @@
 import matter from "gray-matter";
+import { marked } from "marked";
 import { getListOfFilePaths } from "./src/utils";
 
 async function main() {
@@ -18,6 +19,7 @@ async function main() {
         `Can't process ${filePath}. Some missing meta informations.`
       );
     } else {
+      file.content = marked(file.content);
       files.push(file);
     }
   }

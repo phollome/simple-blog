@@ -17,7 +17,9 @@
     "vitest": "^0.26.2"
   },
   "dependencies": {
+    "@types/marked": "^4.0.8",
     "fs-extra": "^11.1.0",
-    "gray-matter": "^4.0.3"
+    "gray-matter": "^4.0.3",
+    "marked": "^4.2.5"
   }
 }
