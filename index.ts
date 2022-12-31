@@ -1,4 +1,6 @@
+import { readFile } from "fs-extra";
 import matter from "gray-matter";
+import Handlebars from "handlebars";
 import { marked } from "marked";
 import { getListOfFilePaths } from "./src/utils";
 
@@ -23,9 +25,20 @@ async function main() {
       files.push(file);
     }
   }
-  console.log(files);
+
+  const postTemplateFile = await readFile("./templates/post.hbs");
+  const postTemplate = await postTemplateFile.toString();
+  const compiledPostTemplate = Handlebars.compile(postTemplate);
+
+  for (const file of files) {
+    const html = compiledPostTemplate({
+      title: file.data.title,
+      content: file.content,
+    });
+    console.log(html);
+  }
 }
 
 main().finally(() => {
-  console.log("done.");
+  console.log("\nDone.");
 });
