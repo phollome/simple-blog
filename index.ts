@@ -3,9 +3,12 @@ import matter from "gray-matter";
 import Handlebars from "handlebars";
 import { marked } from "marked";
 import { getListOfFilePaths } from "./src/utils";
+import configure from "./blog.config";
 
 async function main() {
-  const filePathList = await getListOfFilePaths("./data");
+  const config = configure();
+
+  const filePathList = await getListOfFilePaths(config.contentPath);
 
   const files: ReturnType<typeof matter.read>[] = [];
 
@@ -35,6 +38,7 @@ async function main() {
       title: file.data.title,
       content: file.content,
       description: file.data.description,
+      author: config.author,
     });
     console.log(html);
   }
