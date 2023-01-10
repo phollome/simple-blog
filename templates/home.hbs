@@ -1,0 +1,16 @@
+<html>
+  <head>
+    <title>{{title}}</title>
+  </head>
+  <meta charset="utf-8" />
+  <meta name="author" content="{{author}}" />
+  <meta name="description" content="{{description}}" />
+  <body>
+    <main>
+      <h1>{{title}}</h1>
+      {{#each posts}}
+        <a href="{{link}}"><h2>{{title}}</h2></a>
+      {{/each}}
+    </main>
+  </body>
+</html>

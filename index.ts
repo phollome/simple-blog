@@ -1,12 +1,13 @@
-import { readFile } from "fs-extra";
+import { outputFile, readFile } from "fs-extra";
 import matter from "gray-matter";
 import Handlebars from "handlebars";
 import { marked } from "marked";
-import { getListOfFilePaths } from "./src/utils";
 import configure from "./blog.config";
+import { getListOfFilePaths } from "./src/utils";
 
 async function main() {
   const config = configure();
+  const { author, title, description } = config;
 
   const filePathList = await getListOfFilePaths(config.contentPath);
 
@@ -14,7 +15,6 @@ async function main() {
 
   for (const filePath of filePathList) {
     const file = matter.read(filePath, { excerpt: true });
-    console.log(file);
     if (
       file.data.title === undefined ||
       file.data.slug === undefined ||
@@ -33,15 +33,40 @@ async function main() {
   const postTemplate = await postTemplateFile.toString();
   const compiledPostTemplate = Handlebars.compile(postTemplate);
 
+  const posts = [];
+
   for (const file of files) {
-    const html = compiledPostTemplate({
-      title: file.data.title,
+    const postTitle = file.data.title;
+
+    const postHtml = compiledPostTemplate({
+      title: postTitle,
       content: file.content,
       description: file.data.description,
-      author: config.author,
+      author,
     });
-    console.log(html);
+
+    const year = file.data.date.getFullYear();
+    const month = file.data.date.getMonth() + 1;
+
+    const postLink = `${year}/${month}/${file.data.slug}.html`;
+
+    await outputFile(`./build/${postLink}`, postHtml);
+
+    posts.push({ title: postTitle, link: postLink });
   }
+
+  const homeTemplateFile = await readFile("./templates/home.hbs");
+  const homeTemplate = await homeTemplateFile.toString();
+  const compiledHomeTemplate = Handlebars.compile(homeTemplate);
+
+  const html = compiledHomeTemplate({
+    title,
+    description,
+    author,
+    posts,
+  });
+
+  await outputFile(`./build/index.html`, html);
 }
 
 main().finally(() => {
