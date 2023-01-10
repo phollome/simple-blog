@@ -9,7 +9,7 @@
     "coverage": "vitest run --coverage",
     "build": "npx tsc",
     "build:watch": "npx tsc --watch",
-    "start": "node build/index.js"
+    "start": "node dist/index.js"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
