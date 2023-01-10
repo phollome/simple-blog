@@ -10,7 +10,7 @@ async function main() {
   const files: ReturnType<typeof matter.read>[] = [];
 
   for (const filePath of filePathList) {
-    const file = matter.read(filePath);
+    const file = matter.read(filePath, { excerpt: true });
     console.log(file);
     if (
       file.data.title === undefined ||
@@ -34,6 +34,7 @@ async function main() {
     const html = compiledPostTemplate({
       title: file.data.title,
       content: file.content,
+      description: file.data.description,
     });
     console.log(html);
   }
