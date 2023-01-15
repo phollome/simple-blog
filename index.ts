@@ -1,4 +1,4 @@
-import { outputFile, readFile } from "fs-extra";
+import { outputFile, readFile, emptyDir } from "fs-extra";
 import matter from "gray-matter";
 import Handlebars from "handlebars";
 import { marked } from "marked";
@@ -10,6 +10,8 @@ const config = configure();
 
 async function main() {
   const { author, title, description } = config;
+
+  await emptyDir("./build");
 
   const filePathList = await getListOfFilePaths(config.contentPath);
 
