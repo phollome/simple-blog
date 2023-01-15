@@ -4,9 +4,11 @@ import Handlebars from "handlebars";
 import { marked } from "marked";
 import configure from "./blog.config";
 import { getListOfFilePaths } from "./src/utils";
+import chokidar from "chokidar";
+
+const config = configure();
 
 async function main() {
-  const config = configure();
   const { author, title, description } = config;
 
   const filePathList = await getListOfFilePaths(config.contentPath);
@@ -69,6 +71,17 @@ async function main() {
   await outputFile(`./build/index.html`, html);
 }
 
-main().finally(() => {
-  console.log("\nDone.");
-});
+if (process.argv.includes("-w") || process.argv.includes("--watch")) {
+  console.clear();
+  console.log("Running watch mode.");
+  chokidar.watch(config.contentPath).on("change", () => {
+    console.time("Compiling content");
+    main().finally(() => {
+      console.timeEnd("Compiling content");
+    });
+  });
+} else {
+  main().finally(() => {
+    console.log("\nDone.");
+  });
+}

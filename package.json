@@ -9,8 +9,11 @@
     "coverage": "vitest run --coverage",
     "build": "npx tsc",
     "build:watch": "npx tsc --watch",
-    "start": "node dist/index.js",
-    "dev": "web-dev-server --node-resolve --app-index build/index.html --open --watch"
+    "start": "npm run dev:watch & npm run compile:watch",
+    "compile": "node dist/index.js",
+    "compile:watch": "npm run compile -- -w",
+    "dev": "web-dev-server --node-resolve --app-index build/index.html --open",
+    "dev:watch": "npm run dev -- --watch "
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
@@ -20,6 +23,7 @@
     "vitest": "^0.26.2"
   },
   "dependencies": {
+    "chokidar": "^3.5.3",
     "fs-extra": "^11.1.0",
     "gray-matter": "^4.0.3",
     "handlebars": "^4.7.7",
