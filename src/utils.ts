@@ -14,3 +14,11 @@ export async function getListOfFilePaths(path: string) {
 
   return files;
 }
+
+export async function getStatsOfFile(filePath: string) {
+  const stats = await fs.stat(filePath);
+  return {
+    createdAt: stats.birthtime,
+    updatedAt: stats.mtime,
+  };
+}
