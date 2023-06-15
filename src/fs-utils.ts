@@ -1,14 +1,14 @@
 import fs from "fs-extra";
 
-export async function getListOfFilePaths(path: string) {
-  const entries = await fs.readdir(path, { withFileTypes: true });
+export async function getFilePaths(root: string) {
+  const entries = await fs.readdir(root, { withFileTypes: true });
 
   const files: string[] = [];
   for (const entry of entries) {
     if (entry.isDirectory()) {
-      files.push(...(await getListOfFilePaths(`${path}/${entry.name}`)));
+      files.push(...(await getFilePaths(`${root}/${entry.name}`)));
     } else if (entry.name.endsWith(".md")) {
-      files.push(`${path}/${entry.name}`);
+      files.push(`${root}/${entry.name}`);
     }
   }
 

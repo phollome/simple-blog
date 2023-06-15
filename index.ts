@@ -3,7 +3,7 @@ import matter from "gray-matter";
 import Handlebars from "handlebars";
 import { marked } from "marked";
 import configure from "./blog.config";
-import { getListOfFilePaths } from "./src/utils";
+import { getFilePaths } from "./src/fs-utils";
 import chokidar from "chokidar";
 
 const config = configure();
@@ -13,7 +13,7 @@ async function main() {
 
   await emptyDir("./build");
 
-  const filePathList = await getListOfFilePaths(config.contentPath);
+  const filePathList = await getFilePaths(config.contentPath);
 
   const files: ReturnType<typeof matter.read>[] = [];
 

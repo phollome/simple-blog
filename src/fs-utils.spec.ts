@@ -1,9 +1,9 @@
 import { test, expect } from "vitest";
-import { getListOfFilePaths, getStatsOfFile } from "./utils";
+import { getFilePaths, getStatsOfFile } from "./fs-utils";
 import fs from "fs-extra";
 
 test("getListOfFilePaths()", async () => {
-  const files = await getListOfFilePaths("./tmp");
+  const files = await getFilePaths("./tmp");
 
   expect(files).toEqual([
     "./tmp/files/more-files/another-markdown-file.md",
