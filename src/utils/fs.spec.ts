@@ -1,5 +1,5 @@
 import { test, expect } from "vitest";
-import { getFilePaths, getStatsOfFile } from "./fs-utils";
+import { getFilePaths, getFileInfo } from "./fs";
 import fs from "fs-extra";
 
 test("getListOfFilePaths()", async () => {
@@ -16,10 +16,12 @@ test("getStatsOfFile()", async () => {
 
   await fs.ensureFile(testFilePath);
 
-  const stats = await getStatsOfFile("./tmp/files/some-markdown-file.md");
+  const info = await getFileInfo(testFilePath);
 
-  expect(stats.createdAt).toBeInstanceOf(Date);
-  expect(stats.updatedAt).toBeInstanceOf(Date);
+  expect(info.createdAt).toBeInstanceOf(Date);
+  expect(info.updatedAt).toBeInstanceOf(Date);
+  expect(info.filename).toBe("get-stats-of-file.txt");
+  expect(info.extension).toBe(".txt");
 
   await fs.remove(testFilePath);
 });

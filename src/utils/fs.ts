@@ -1,4 +1,5 @@
 import fs from "fs-extra";
+import path from "path";
 
 export async function getFilePaths(root: string) {
   const entries = await fs.readdir(root, { withFileTypes: true });
@@ -15,10 +16,14 @@ export async function getFilePaths(root: string) {
   return files;
 }
 
-export async function getStatsOfFile(filePath: string) {
+export async function getFileInfo(filePath: string) {
   const stats = await fs.stat(filePath);
+  const filename = path.basename(filePath);
+  const extension = path.extname(filePath);
   return {
     createdAt: stats.birthtime,
     updatedAt: stats.mtime,
+    filename,
+    extension,
   };
 }
