@@ -9,10 +9,10 @@
     "coverage": "vitest run --coverage",
     "build": "npx tsc",
     "build:watch": "npx tsc --watch",
-    "start": "npm run dev:watch & npm run compile:watch",
+    "start": "npm run dev:watch & npm run compile:watch & npm run build:watch",
     "compile": "node dist/index.js",
     "compile:watch": "npm run compile -- -w",
-    "dev": "web-dev-server --node-resolve --app-index build/index.html --open",
+    "dev": "web-dev-server",
     "dev:watch": "npm run dev -- --watch "
   },
   "devDependencies": {
