@@ -30,6 +30,17 @@ export async function getFilePaths(
   return files;
 }
 
+export function getFilenameInfo(filePath: string) {
+  const filename = path.basename(filePath);
+  const extension = path.extname(filePath);
+  const filenameWithoutExtension = path.basename(filePath, extension);
+  return {
+    filename,
+    extension,
+    filenameWithoutExtension,
+  };
+}
+
 export async function getFileInfo(filePath: string) {
   const stats = await fs.stat(filePath);
   return {
@@ -39,13 +50,12 @@ export async function getFileInfo(filePath: string) {
   };
 }
 
-export function getFilenameInfo(filePath: string) {
-  const filename = path.basename(filePath);
-  const extension = path.extname(filePath);
-  const filenameWithoutExtension = path.basename(filePath, extension);
+export async function loadFile(filePath: string) {
+  const fileInfo = await getFileInfo(filePath);
+  const content = await fs.readFile(filePath, "utf-8");
+
   return {
-    filename,
-    extension,
-    filenameWithoutExtension,
+    content,
+    ...fileInfo,
   };
 }
